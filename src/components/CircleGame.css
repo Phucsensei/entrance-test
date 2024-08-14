@@ -1,0 +1,65 @@
+.circle-container {
+    margin-top: 20px;
+    border: 1px solid black;
+    padding: 10px;
+    width: 400px;
+    height: 400px;
+    margin: auto;
+    margin-top: 20px;
+    position: relative;
+}
+
+.circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid black;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: white;
+    user-select: none;
+    transition: background-color 2s, opacity 2s;
+
+}
+
+.circle.clicked {
+    background-color: red;
+}
+
+.CircleGame {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    max-width: 420px;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 100px;
+}
+
+.info label {
+    flex: 1;
+}
+
+
+
+.CircleGame button {
+    width: 25%;
+    cursor: pointer;
+}
+
+.CircleGame input[type="text"]:hover,
+.CircleGame input[type="text"]:focus {
+    border-color: rgb(0, 140, 255);
+    border: 3px solid rgb(0, 140, 255);
+    outline: none;
+}
