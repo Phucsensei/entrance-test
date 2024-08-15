@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './CircleGame.css';
 
-
 const CircleGame = () => {
   const [points, setPoints] = useState(0);
   const [circles, setCircles] = useState([]);
@@ -9,6 +8,7 @@ const CircleGame = () => {
   const [allCleared, setAllCleared] = useState(false);
   const [nextId, setNextId] = useState(1);
   const [gameOver, setGameOver] = useState(false);
+  const [gameStarted, setGameStarted] = useState(false); // Trạng thái trò chơi
 
   useEffect(() => {
     let timer;
@@ -23,6 +23,9 @@ const CircleGame = () => {
   };
 
   const handleRestart = () => {
+    if (!gameStarted) {
+      setGameStarted(true); // Đánh dấu trò chơi đã bắt đầu
+    }
     setTime(0);
     setAllCleared(false);
     setGameOver(false);
@@ -47,7 +50,7 @@ const CircleGame = () => {
 
       setTimeout(() => {
         setCircles(prevCircles => prevCircles.filter(circle => circle.id !== id));
-      }, 500);
+      }, 1500);
     } else {
       setGameOver(true);
     }
@@ -77,7 +80,9 @@ const CircleGame = () => {
           <label>Time: </label>
           <span className='time'>{time.toFixed(1)}s</span>
         </div>
-        <button onClick={handleRestart} className='text-blue-700'>Restart</button>
+        <button onClick={handleRestart} className='text-blue-700'>
+          {gameStarted ? 'Restart' : 'Play'}
+        </button>
       </div>
 
       <div className="circle-container">
@@ -89,7 +94,7 @@ const CircleGame = () => {
             style={{
               top: `${circle.top}px`,
               left: `${circle.left}px`,
-              zIndex: points - circle.id + 1  // Ensures lower numbers are on top
+              zIndex: points - circle.id + 1  
             }}>
             {circle.id}
           </div>
