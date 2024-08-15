@@ -19,7 +19,10 @@ const CircleGame = () => {
   }, [circles, gameOver]);
 
   const handlePointChange = (e) => {
-    setPoints(Number(e.target.value));
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) { 
+      setPoints(Number(value));
+    }
   };
 
   const handleRestart = () => {
@@ -74,7 +77,12 @@ const CircleGame = () => {
         </h2>
         <div className='info'>
           <label>Points:</label>
-          <input type="text" value={points} onChange={handlePointChange} />
+          <input 
+            type="text" 
+            value={points} 
+            onChange={handlePointChange} 
+            pattern="\d*" 
+          />
         </div>
         <div className='info'>
           <label>Time: </label>
