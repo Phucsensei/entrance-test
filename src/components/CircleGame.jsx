@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './CircleGame.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CircleGame = () => {
   const [points, setPoints] = useState(0);
@@ -18,16 +20,32 @@ const CircleGame = () => {
     return () => clearInterval(timer);
   }, [circles, gameOver]);
 
-  const handlePointChange = (e) => {
+  useEffect(() => {
+    if (gameOver) {
+      toast.error('Game Over');
+    } else if (allCleared) {
+      toast.success('All Cleared');
+    }
+  }, [gameOver, allCleared]);
+
+ const handlePointChange = (e) => {
     const value = e.target.value;
-    if (/^\d*$/.test(value)) { 
-      setPoints(Number(value));
+    if (/^\d*$/.test(value)) {
+      const numericValue = Number(value);
+      if (numericValue > 1000) {
+        toast.error('Please enter a value below 1000');
+      } else {
+        setPoints(numericValue);
+      }
     }
   };
 
-  const handleRestart = () => {
+ const handleRestart = () => {
     if (!gameStarted) {
       setGameStarted(true); 
+      toast.info('Game Started'); 
+    } else {
+      toast.info('Game Restarted'); 
     }
     setTime(0);
     setAllCleared(false);
