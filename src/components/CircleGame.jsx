@@ -8,7 +8,7 @@ const CircleGame = () => {
   const [allCleared, setAllCleared] = useState(false);
   const [nextId, setNextId] = useState(1);
   const [gameOver, setGameOver] = useState(false);
-  const [gameStarted, setGameStarted] = useState(false); // Trạng thái trò chơi
+  const [gameStarted, setGameStarted] = useState(false); 
 
   useEffect(() => {
     let timer;
@@ -24,7 +24,7 @@ const CircleGame = () => {
 
   const handleRestart = () => {
     if (!gameStarted) {
-      setGameStarted(true); // Đánh dấu trò chơi đã bắt đầu
+      setGameStarted(true); 
     }
     setTime(0);
     setAllCleared(false);
