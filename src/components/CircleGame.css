@@ -39,6 +39,19 @@
     max-width: 420px;
 }
 
+.CircleGame h1 {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 3rem;
+    /* Kích thước font lớn hơn */
+    font-weight: bold;
+    background: linear-gradient(90deg, rgba(255, 123, 0, 1) 0%, rgba(255, 100, 0, 1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+    /* Hiệu ứng đổ bóng cho chữ */
+    margin: 0;
+}
+
 .info {
     display: flex;
     align-items: center;

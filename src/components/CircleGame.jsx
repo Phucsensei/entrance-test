@@ -23,7 +23,7 @@ const CircleGame = () => {
   useEffect(() => {
     if (gameOver) {
       toast.error('Game Over');
-      setPoints(0);  // Xóa hết points khi game over
+      setPoints(0); // Xóa hết points khi game over
     } else if (allCleared) {
       toast.success('All Cleared');
     }
@@ -42,22 +42,30 @@ const CircleGame = () => {
   };
 
   const handleRestart = () => {
+    if (points === 0) {
+      toast.error('Points must be greater than 0 to start the game');
+      return; // Không bắt đầu trò chơi nếu points là 0
+    }
+
     if (!gameStarted) {
       setGameStarted(true);
       toast.info('Game Started');
     } else {
       toast.info('Game Restarted');
     }
+
     setTime(0);
     setAllCleared(false);
     setGameOver(false);
     setNextId(1);
+
     const newCircles = Array.from({ length: points }, (_, i) => ({
       id: i + 1,
       clicked: false,
       top: Math.random() * 375,
       left: Math.random() * 375
     }));
+
     setCircles(newCircles);
   };
 
@@ -89,6 +97,7 @@ const CircleGame = () => {
   return (
     <div className="game">
       <div className="CircleGame">
+        <h1>Trần Chí Phúc</h1>
         <h2
           style={{
             color: gameOver ? 'red' : allCleared ? 'green' : 'black'
@@ -103,7 +112,6 @@ const CircleGame = () => {
             value={points} 
             onChange={handlePointChange} 
             pattern="\d*" 
-            disabled={gameOver} // Ngăn người dùng nhập thêm points khi game over
           />
         </div>
         <div className='info'>
