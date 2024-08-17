@@ -10,7 +10,7 @@ const CircleGame = () => {
   const [allCleared, setAllCleared] = useState(false);
   const [nextId, setNextId] = useState(1);
   const [gameOver, setGameOver] = useState(false);
-  const [gameStarted, setGameStarted] = useState(false); 
+  const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
     let timer;
@@ -23,12 +23,13 @@ const CircleGame = () => {
   useEffect(() => {
     if (gameOver) {
       toast.error('Game Over');
+      setPoints(0);  // Xóa hết points khi game over
     } else if (allCleared) {
       toast.success('All Cleared');
     }
   }, [gameOver, allCleared]);
 
- const handlePointChange = (e) => {
+  const handlePointChange = (e) => {
     const value = e.target.value;
     if (/^\d*$/.test(value)) {
       const numericValue = Number(value);
@@ -40,12 +41,12 @@ const CircleGame = () => {
     }
   };
 
- const handleRestart = () => {
+  const handleRestart = () => {
     if (!gameStarted) {
-      setGameStarted(true); 
-      toast.info('Game Started'); 
+      setGameStarted(true);
+      toast.info('Game Started');
     } else {
-      toast.info('Game Restarted'); 
+      toast.info('Game Restarted');
     }
     setTime(0);
     setAllCleared(false);
@@ -61,6 +62,8 @@ const CircleGame = () => {
   };
 
   const handleCircleClick = (id) => {
+    if (gameOver) return; // Dừng mọi thao tác khi game over
+
     if (id === nextId) {
       setNextId(prevId => prevId + 1);
       setCircles(prevCircles =>
@@ -100,6 +103,7 @@ const CircleGame = () => {
             value={points} 
             onChange={handlePointChange} 
             pattern="\d*" 
+            disabled={gameOver} // Ngăn người dùng nhập thêm points khi game over
           />
         </div>
         <div className='info'>
@@ -120,7 +124,7 @@ const CircleGame = () => {
             style={{
               top: `${circle.top}px`,
               left: `${circle.left}px`,
-              zIndex: points - circle.id + 1  
+              zIndex: points - circle.id + 1
             }}>
             {circle.id}
           </div>
